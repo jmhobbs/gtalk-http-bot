@@ -27,17 +27,9 @@ class HTTPBot(GtalkRobot):
 
 
 if __name__ == "__main__":
-
-    import argparse
-
-    parser = argparse.ArgumentParser(description='HTTP Google Talk Bot')
-    parser.add_argument('gtalk_email', type=str, help='GTalk email address')
-    parser.add_argument('gtalk_password', type=str, help='GTalk password')
-    parser.add_argument('url', type=str, help='where to send requests')
-
-    args = parser.parse_args()
+    import os
 
     bot = HTTPBot()
-    bot.setState('available', "HTTP Bot")
-    bot.setEndpoint(args.url)
-    bot.start(args.gtalk_email, args.gtalk_password)
+    bot.setState('available', os.environ.get('BOT_NAME', 'HTTP Bot'))
+    bot.setEndpoint(os.environ.get('BOT_URL'))
+    bot.start(os.environ.get('BOT_GTALK_USER'), os.environ.get('BOT_GTALK_PASSWORD'))
